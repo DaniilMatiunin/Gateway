@@ -1,0 +1,16 @@
+{% extends 'mainly/base.html' %}
+#отображает список всех тем на форуме
+{% block title %}
+Создавайте новые (интересные) темы для обсуждения
+{% endblock %}
+
+
+{% block content %}
+  {% for thread in object_list %}
+    <div class="thread">
+      <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+        # возвращает канонический URL-адрес объекта.
+      <p>{{ thread.created_at }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'mainly/base.html'%}
+{% block title %}
+Создать новую тему
+{% endblock %}
+
+{% block content %}
+  <h1>Изобретите новую тему </h1>
+
+  <form method="post" action="{% url 'create_thread' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Предложить Тему</button>
+  </form>
+{% endblock %}
