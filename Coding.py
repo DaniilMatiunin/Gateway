@@ -1,29 +1,14 @@
-
-from base64 import b64encode
-from Crypto.Cipher import AES
-import json
-from base64 import b64decode
-from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
-key = get_random_bytes(16)
-cipher = AES.new(key, AES.MODE_CTR)
-ct_bytes = cipher.encrypt(b'OYZFFF')
-nonce = b64encode(cipher.nonce).decode('utf-8')
-ct = b64encode(ct_bytes).decode('utf-8')
-result = json.dumps({'nonce': nonce, 'ciphertext': ct})
-print(result)
-{"nonce": "XqP8WbylRt0=", "ciphertext": "Mie5lqje"}
+'''Напишите функцию, которая удаляет из введённой пользователем строки все повторяющиеся символы и пробелы.
+ После чего выводит полученный результат на экран.
+Например, если было введено "abc cde def", то должно быть выведено "abcdef".'''
+def strok(s):
+    s_new=''
+    for i in s:
+        if i not in s_new and i != ' ':
+            s_new += i
 
 
+    return s_new
 
-# We assume that the key was securely shared beforehand
-
-try:
-    b64 = json.loads('s')
-    nonce = b64decode(b64['nonce'])
-    ct = b64decode(b64['ciphertext'])
-    cipher = AES.new(key, AES.MODE_CTR, nonce=nonce)
-    pt = cipher.decrypt(ct)
-    print("The message was: ", pt)
-except (ValueError, KeyError):
-    ''''''
+x=input('Введите число')
+print(strok(x))

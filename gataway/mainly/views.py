@@ -3,7 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
-
+from bs4 import BeautifulSoup
+import requests
 from .models import Thread, Post
 
 
@@ -40,5 +41,21 @@ def index(request):
     return render(request,'mainly/index.html')
 def about(request):
     return render(request,'mainly/about.html')
+
+def data_parsing(request):
+    url="https://www.rudn.ru/contacts"
+    connect= requests.get(url)
+    print(connect)
+    HTML=BeautifulSoup(connect.text,'html.parser')
+    contacts=[]
+    phonez_numer=HTML.find_all("div",class_="contacts__item mail")
+
+    n=['data','fotos','fotodwdw']
+    data ={
+        'key':
+        'phone': contacts
+    }
+    return render(request,'app/data_parsing.html',data)
+
 
 
