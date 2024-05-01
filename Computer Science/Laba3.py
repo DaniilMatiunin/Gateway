@@ -11,7 +11,7 @@ def l1(x):
     return log
 
 def l2(x):
-    log= (x%2==0 or x%3==0 or x%5==0)
+    log= (x%2 ==0 or x%3==0 or x%5==0)
     return log
 
 def l3(x):
