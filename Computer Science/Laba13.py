@@ -77,22 +77,32 @@ def Floid(A, n):
             for j in range(n):
                 A[i,j] = min(A[i,j],A[i,k]+A[k,j])
     return F
-def Floidst3(A,k):
-    for i in range(len(A)):
-        for j in range(len(A)):
-            A[i, j] = min(A[i, j], A[i, k] + A[k, j])
-    return A
 
-pos= [[0, 5, np.inf, 10],
-             [np.inf, 0, 3, np.inf],
-             [np.inf, np.inf, 0,   1],
-             [np.inf, np.inf, np.inf, 0]
-             ]
-sum =[]
-n=4
-with ThreadPoolExecutor(max_workers=n) as executor:
-    for k in range(len(pos)):
-        results = [executor.submit(Floidst3,pos,k)]
-    for future in as_completed(results):
-        sum.append( future.result())
-print(pos)
+
+google = 9482673459
+
+
+def path(i, j, k, A):
+    A[i][j] = min(A[i][j], A[i][k] + A[k][j])
+
+
+def Floid1(A, n):
+    F = [row.copy() for row in A]
+    with ThreadPoolExecutor() as executor:
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    executor.submit(path, i, j, k, F)
+    return F
+
+
+A = [[0, 3, google, 2, google, 7],
+     [google, 0, google, google, google, google],
+     [8, google, 0, 1, 4, google],
+     [google, google, google, 0, google, 1],
+     [google, google, google, 2, 0, 5],
+     [google, google, google, google, 1, 0]]
+n = len(A)
+result = Floid1(A, n)
+for row in result:
+    print(row)
